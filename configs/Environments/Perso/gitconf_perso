@@ -1,0 +1,43 @@
+#Default difftool
+[diff]
+	 tool = default-difftool
+
+[difftool "default-difftool"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
+#Overwrite the system conf file
+[core]
+    editor = nvim
+
+[merge]
+	tool = nvimdiff
+
+[mergetool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd J\"
+
+#Meld difftool
+[difftool "meld"]
+	 cmd = meld "$LOCAL" "$REMOTE"
+
+#Meld mergetool
+[mergetool "meld"]
+    # Choose one of these 2 lines (not both!)
+    #cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+    cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+
+[alias]
+	diffmeld  = difftool  --tool=meld
+	mergemeld = mergetool --tool=meld
+
+[color]
+	ui = auto
+
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
+# Just to check if this config file is sourced : "git ford" is "git fetch"
+[alias]
+    perso = fetch

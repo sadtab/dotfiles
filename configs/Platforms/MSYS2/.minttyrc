@@ -1,0 +1,42 @@
+FontRender=uniscribe
+Font=Cousine Nerd Font Mono
+#Font=DejaVuSansMono NF
+#ThemeFile=dracula
+Locale=C
+Charset=UTF-8
+FontHeight=10
+BoldAsFont=no
+AllowBlinking=yes
+Transparency=off
+OpaqueWhenFocused=no
+CursorType=line
+
+#Term=xterm-256color
+ScrollMod=shift
+Scrollbar=none
+FontSmoothing=default
+Language=en_US
+
+#"\e[1;5C": forward-word   # ctrl + right
+#"\e[1;5D": backward-word  # ctrl + left 
+
+ForegroundColour=248,248,242
+BackgroundColour=40,42,54
+Black=0,0,0
+BoldBlack=104,104,104
+Red=255,85,85
+BoldRed=255,110,103
+Green=80,250,123
+BoldGreen=90,247,142
+Yellow=241,250,140
+BoldYellow=244,249,157
+Blue=202,169,250
+BoldBlue=202,169,250
+Magenta=255,121,198
+BoldMagenta=255,146,208
+Cyan=139,233,253
+BoldCyan=154,237,254
+White=191,191,191
+BoldWhite=230,230,230
+BellType=-1
+BellFile=percussive-bongo-hi

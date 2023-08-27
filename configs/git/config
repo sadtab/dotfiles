@@ -1,0 +1,46 @@
+[core]
+    editor = nvim
+    autocrlf = input
+    excludesFile = ~/dotfiles/configs/git/exclude
+
+[alias]
+    cl = clean --exclude=Session.vim --exclude=*.swp
+    co = checkout
+    br = branch
+    ft = fetch
+    st = status
+    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+
+[include]
+    path = ~/.config/git/gitconf_machine
+
+[pull]
+    rebase = false
+
+[push]
+	default = current
+
+#usernames should be configured at each repository : name = Sadegh TABEI (ex- [machine]:[OS])"
+#                   ~/my-awesome-project/.git/config
+#                   ~/Dotfiles/.git/config
+#Current valid user configuration
+#[user]
+#   name = Sadegh TABEI (ex- DELL_TCR:MSYS2)"
+#   name = Sadegh TABEI (ex- HP_TCR:MSYS2)"
+#   name = Sadegh TABEI (ex- HP_TCR:WSL)"
+#   name = Sadegh TABEI (ex- LenoLino:Ubuntu)"
+#   name = Sadegh TABEI (ex- Redell:WSL)"
+#   name = Sadegh TABEI (ex- Redell:Win10)"
+#   name = Sadegh TABEI (ex- Rosso:Win10)"
+#   name = Sadegh TABEI (ex- ZenBook:WSL)"
+#   name = Sadegh TABEI (ex- ZenBook:Ubuntu)"
+#   name = Sadegh TABEI (ex- OnePlus:Termux)"
+#   name = Sadegh TABEI (ex- MiniDell:MSYS2)"
+#   name = Sadegh TABEI (ex- MiniDell:Ubuntu)"
+#   name = Sadegh TABEI (ex- Noir:Ubuntu)"
+#   name = Sadegh TABEI (ex- VB:Ubuntu)"
+#   name = Sadegh TABEI (ex- Fordell:MSYS2)"
+#   name = Sadegh TABEI (ex- HiddenTower:Ubuntu)
+#   name = Sadegh TABEI (ex- Machine:System)"
+#
+#   email = tabei.co@gmail.com

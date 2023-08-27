@@ -1,5 +1,3 @@
-export BASH_RC_SOURCED=true
-
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
@@ -158,10 +156,3 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
-
-[[ $BASH_RC_SOURCED      != "true" && -f ~/.bashrc       ]] && source ~/.bashrc
-[[ $BASH_PROFILE_SOURCED != "true" && -f ~/.bash_profile ]] && source ~/.bash_profile
-[[ $BASH_ALIASES_SOURCED != "true" && -f ~/.bash_aliases ]] && source ~/.bash_aliases
-[[ $BASH_MACHINE_SOURCED != "true" && -f ~/.bash_machine ]] && source ~/.bash_machine
-
-alias luamake=/home/stabei/.local/share/lua-language-server/3rd/luamake/luamake

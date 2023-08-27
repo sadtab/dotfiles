@@ -1,0 +1,203 @@
+" XDG Base directorya------------------------------------{{{1
+set runtimepath+=$XDG_DATA_HOME/vim      " https://blog.joren.ga/vim-xdg
+if empty($MYVIMRC) | let $MYVIMRC = expand('<sfile>:p') | endif
+
+"" Uncomment once to create directories
+" call mkdir($XDG_DATA_HOME."/vim/spell", 'p', 0700)
+" set backupdir=$XDG_DATA_HOME/vim/backup | call mkdir(&backupdir, 'p', 0700)
+" set directory=$XDG_DATA_HOME/vim/swap   | call mkdir(&directory, 'p', 0700)
+" set undodir=$XDG_DATA_HOME/vim/undo     | call mkdir(&undodir,   'p', 0700)
+" set viewdir=$XDG_DATA_HOME/vim/view     | call mkdir(&viewdir,   'p', 0700)
+
+let g:netrw_home = $XDG_DATA_HOME."/vim"
+set viminfofile=$XDG_DATA_HOME/vim/viminfo
+set backupdir=$XDG_DATA_HOME/vim/backup
+set directory=$XDG_DATA_HOME/vim/swap
+set undodir=$XDG_DATA_HOME/vim/undo
+set viewdir=$XDG_DATA_HOME/vim/view
+
+
+" Vundle plugin management ------------------------------{{{1
+set nocompatible                   		                " requise pour Vundle
+filetype off                       		                " requise pour Vundle
+set runtimepath+=$XDG_DATA_HOME/vim/bundle/Vundle.vim/  " requise pour XDG
+call vundle#begin()
+let vundle#bundle_dir = expand("$XDG_DATA_HOME/vim/bundle")
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-fugitive'
+Plugin 'preservim/nerdtree'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'ingmarlehmann/vim-franca-highlight'
+Plugin 'PhilRunninger/nerdtree-visual-selection'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'will133/vim-dirdiff'
+Plugin 'Dracula/vim',  { 'as': 'dracula' }
+Plugin 'LucHermitte/lh-vim-lib'
+Plugin 'peterhoeg/vim-qml'
+Plugin 'preservim/nerdcommenter'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'lifepillar/vim-solarized8'
+Plugin 'rhysd/vim-clang-format'
+Plugin 'powerman/vim-plugin-AnsiEsc'
+Plugin 'itchyny/screensaver.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'mbbill/undotree'
+
+call vundle#end()          " requise pour Vundle
+filetype plugin indent on  " requise pour Vundle
+
+source ~/dotfiles/configs/nvim/common.vim
+
+augroup vimAutoGroup
+    autocmd!
+    autocmd VimEnter * call TreeAtStartUp()
+
+    "Highlight my keyword
+    autocmd VimEnter,WinEnter,BufWinEnter * :match ST /TODOST/
+
+augroup END
+
+" Functions and DIYs --------------------------------{{{1
+" TODOST highlighting
+highlight ST term=bold guifg=red guibg=green
+
+" Themes
+set background=dark
+colorscheme dracula
+let g:airline_theme='dracula'
+
+function ToggleColors()
+    if (g:colors_name == "dracula")
+        set background=light
+        colorscheme solarized8
+        let g:airline_theme='solarized'
+        :AirlineTheme solarized
+    else
+        set background=dark
+        colorscheme dracula
+        let g:airline_theme='dracula'
+        :AirlineTheme dracula
+    endif
+endfunction
+cnoreabbrev TC call ToggleColors()
+
+"Toggle QuickFix window
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+nnoremap <silent> <space>q :call ToggleQuickFix()<cr>
+nnoremap <silent> \w :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+" Plugin configuration ------------------------------{{{1
+" airline -------------------------------------------{{{2
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = '$'
+let g:airline#extensions#fugitiveline#enabled = 1
+
+" Tree configuration --------------------------------{{{2
+" NERDTree after a re-source, fix syntax matching issues (concealing brackets):
+nnoremap <F1> :NERDTreeToggle<CR>
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
+
+" Disable C-hjkl mapping in NERDTree
+let g:NERDTreeMapJumpNextSibling = '<Nop>'
+let g:NERDTreeMapJumpPrevSibling = '<Nop>'
+let NERDTreeMapActivateNode='<space>'
+
+let g:NERDTreeWinSize = 30
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusShowIgnored = 1
+let g:NERDTreeBookmarksFile = $XDG_CONFIG_HOME.'/NERDTreeBookmarks'
+
+" Filetype highlighting in NERDTree
+let g:NERDTreeSyntaxDisableDefaultExtensions = 1
+let g:NERDTreeSyntaxDisableDefaultExactMatches = 1
+let g:NERDTreeSyntaxDisableDefaultPatternMatches = 1
+let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'cpp', 'hpp' , 'tex' , 'md' ] " enabled extensions with default colors
+let g:NERDTreeSyntaxEnabledExactMatches = ['cmakelists.txt', 'favicon.ico'] " enabled exact matches with default colors
+let g:NERDTreeHighlightCursorline = 0
+let g:NERDTreeCascadeSingleChildDir=0
+
+"Open NERDTree if no argument specified at start up
+function! TreeAtStartUp()
+    if 0 == argc()
+        NERDTreeFocus
+    end
+endfunction
+
+" System dependent configuration ------------------------{{{1
+" MSYS2 dependent configuration -------------------------{{{2
+if $ST_TARGET_SYS == "MSYS2"
+    "Ctrl Arrows : do nothing
+    noremap [1;5A <nop>
+    noremap [1;5B <nop>
+    noremap [1;5D <nop>
+    noremap [1;5C <nop>
+    noremap! [1;5A <nop>
+    noremap! [1;5B <nop>
+    noremap! [1;5D <nop>
+    noremap! [1;5C <nop>
+
+    "enabaling italic in tmux
+    "let &t_ZH="\e[3m"
+    "let &t_ZR="\e[23m"
+
+endif
+
+" Termux dependent configuration ------------------------{{{2
+if $ST_TARGET_SYS == "Termux"
+    "enabaling italic
+    "let &t_ZH="\e[3m"
+    "let &t_ZR="\e[23m"
+
+    "set t_Co=256
+endif
+
+" WSL dependent configuration ---------------------------{{{2
+if $ST_TARGET_SYS == "WSL"
+    "Ctrl Arrows : do nothing
+    noremap [1;5A <nop>
+    noremap [1;5B <nop>
+    noremap [1;5D <nop>
+    noremap [1;5C <nop>
+    noremap! [1;5A <nop>
+    noremap! [1;5B <nop>
+    noremap! [1;5D <nop>
+    noremap! [1;5C <nop>
+
+endif
+
+" UBUNTU dependent configuration ------------------------{{{2
+if $ST_TARGET_SYS == "Ubuntu"
+    " In vim <Arrows> are recieved as O + Something
+    noremap OC <Right>
+    noremap OD <Left>
+    noremap OA <Up>
+    noremap OB <Down>
+    noremap! OC <Right>
+    noremap! OD <Left>
+    noremap! OA <Up>
+    noremap! OB <Down>
+endif
+
+" Machine dependent configuration -----------------------{{{2
+if $ST_TARGET_MACHINE == "HT"
+    " Nothing
+endif
+
+" Muscle memorizer --------------------------------------{{{1
+"nnoremap <silent> : :ScreenSaver largeclock<CR>:sleep 1000m
+"vnoremap <silent> : :ScreenSaver largeclock<CR>:sleep 1000m

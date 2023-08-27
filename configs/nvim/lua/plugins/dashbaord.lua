@@ -1,0 +1,92 @@
+require('dashboard').setup({
+    theme = 'hyper',
+    config = {
+        week_header = {
+            enable = true,
+        },
+        shortcut = {
+            {
+                icon = '󰚰 ',
+                desc = 'Update',
+                group = '@property',
+                action = 'PackerSync',
+                key = 'u'
+            },
+            {
+                icon = ' ',
+                desc = 'Files',
+                group = 'Label',
+                action = 'Telescope find_files',
+                key = 'f',
+            },
+            {
+                icon = ' ',
+                desc = 'Git diff',
+                group = 'DiagnosticHint',
+                action = ':DiffviewOpen',
+                key = 'd',
+            },
+            {
+                icon = ' ',
+                desc = 'Last Session',
+                group = 'Number',
+                action = 'SessionRestore',
+                key = 's',
+            },
+            {
+                icon = ' ',
+                desc = 'Config files',
+                group = 'Exception',
+                action = 'lua ConfMenu()',
+                key = 'c',
+            },
+            {
+                icon = ' ',
+                desc = 'Grep words',
+                group = 'DiagnosticError',
+                action = 'lua require("telescope.builtin").live_grep()',
+                key = 'g',
+            },
+            {
+                icon = ' ',
+                desc = 'Obsidian',
+                group = 'DiagnosticWarn',
+                action = 'ObsidianQuickSwitch',
+                key = 'o',
+            },
+            {
+                icon = 'ﴬ ',
+                desc = 'Notes',
+                group = 'Function',
+                action = 'lua NoteMenu()',
+                key = 'n',
+            },
+            {
+                icon = 'ﴬ ',
+                desc = 'Perso Index',
+                group = 'DevIconPackageJson',
+                action = 'Neorg workspace perso',
+                key = 'p',
+            },
+            {
+                icon = 'ﴬ ',
+                desc = 'Work Index',
+                group = 'DevIconVagrantfile',
+                action = 'Neorg workspace work',
+                key = 'w',
+            },
+            {
+                icon = 'ﴬ ',
+                desc = 'Journal',
+                group = 'ScrollbarErrorHandle',
+                action = 'Neorg journal today',
+                key = 'J',
+            },
+        },
+        confirm_key = '<space>',
+        project = { enable = false },
+        packages = { enable = false },
+        footer = { 'Matinale..Aprèm..Soirée', 'Juste aprés le point du matin', '6 Tomates' },
+        mru = { limit = 10 },
+    },
+})
