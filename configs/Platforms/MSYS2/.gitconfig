@@ -1,0 +1,5 @@
+[include]
+    path = ~/dotfiles/configs/git/config
+    path = ~/dotfiles/configs/Machines/MSYSDELL/gitconf_machine
+[core]
+    excludesFile = ~/dotfiles/configs/git/exclude
