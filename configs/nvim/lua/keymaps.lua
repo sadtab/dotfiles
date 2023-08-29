@@ -35,6 +35,13 @@ ConfMenu = function()
         })
 end
 
+DotMenu = function()
+    require("telescope.builtin").find_files(
+        require("telescope.themes").get_dropdown {
+            cwd = "~/dotfiles/",
+            hidden = true,
+        })
+end
 -------------
 -- keymaps --
 -------------
@@ -104,6 +111,8 @@ vim.keymap.set('n', '<Bslash>c', ConfMenu,
     { noremap = true, silent = true, desc = "Open configs" })
 vim.keymap.set('n', '<Bslash>n', NoteMenu,
     { noremap = true, silent = true, desc = "Open Neorg Notes" })
+vim.keymap.set('n', '<Bslash>d', DotMenu,
+    { noremap = true, silent = true, desc = "Open Dotfiles" })
 vim.keymap.set('n', '<Bslash>o', '<cmd>ObsidianQuickSwitch<CR>',
     { noremap = true, silent = true, desc = "Open Obsidian Files" })
 

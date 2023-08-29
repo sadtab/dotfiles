@@ -1,5 +1,4 @@
 export ST_CONF="$HOME/dotfiles/configs"
-
 export ST_TARGET_MACHINE="HT"
 export ST_TARGET_SYS="Ubuntu"
 export USER="stabei"

@@ -156,8 +156,6 @@ mkdir -p $XDG_CONFIG_HOME/git
 ```
 ln -s path/to/mashine/.bashrc $HOME
 ln -s path/to/mashine/misc/Streamdeck/.streamdeck_ui.json $HOME
-# Some shells sources $HOME/.profile, so :
-echo "source $HOME/.bashrc" > $HOME/.profile
 ```
 
 - Create symlinks to `XDG_CONFIG_HOME` config directory for the tools' configurations

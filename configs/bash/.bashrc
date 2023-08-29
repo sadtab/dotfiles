@@ -61,26 +61,6 @@ stty -ixon
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Git autocomplete
-if [ -e /usr/share/git/git-prompt.sh ]
-then
-	source /usr/share/git/git-prompt.sh
-fi
-
-if [ -e /etc/bash_completion.d/git-prompt  ]
-then
-    source /etc/bash_completion.d/git-prompt
-fi
-
-# enable bash completion in interactive shells
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
 alias my_git_ps1='git log -1 > /dev/null 2>&1 && __git_ps1'
 PS1_GIT_BRANCH='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\e[33m\]`my_git_ps1`\[\e[0m\]\n\$ '
 export PS1=${PS1_GIT_BRANCH}
