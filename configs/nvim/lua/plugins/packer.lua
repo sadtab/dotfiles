@@ -24,17 +24,20 @@ require('packer').startup({
         ------------
 
         -- UI
-        use { 'glepnir/dashboard-nvim', }
+        use { 'nvimdev/dashboard-nvim', }
         use { 'karb94/neoscroll.nvim' }
         use { 'j-hui/fidget.nvim', tag = "legacy" }
         use { 'folke/twilight.nvim' }
         use { 'folke/tokyonight.nvim' }
         use { 'EdenEast/nightfox.nvim', run = ':NightfoxCompile' }
-        use { 'nvim-lualine/lualine.nvim', requires = 'nvim-tree/nvim-web-devicons' }
+        use { 'catppuccin/nvim', as = "catppuccin" }
+        use { 'nvim-lualine/lualine.nvim' }
         use { 'RRethy/vim-illuminate' }
         use { 'petertriho/nvim-scrollbar' }
         use { 'echasnovski/mini.nvim', branch = 'stable' }
         use { 'rmagatti/auto-session' }
+        use { 'rose-pine/neovim', as = 'rose-pine' }
+        use { 'rebelot/kanagawa.nvim', run = ':KanagawaCompile' }
 
         -- LSP Core
         use { 'neovim/nvim-lspconfig' }
@@ -65,14 +68,13 @@ require('packer').startup({
         -- Utils
         use { 'numToStr/Comment.nvim' }
         use { 'folke/which-key.nvim' }
-        use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' }
-        use { 'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons' }
-        use { 'danymat/neogen', requires = 'nvim-treesitter/nvim-treesitter' }
+        use { 'folke/todo-comments.nvim' }
+        use { 'nvim-tree/nvim-tree.lua' }
+        use { 'danymat/neogen' }
         use { 'gennaro-tedesco/nvim-peekup' }
         use { 'windwp/nvim-autopairs' }
         use { 'nvim-neorg/neorg',
             requires = {
-                'nvim-lua/plenary.nvim',
                 'nvim-neorg/neorg-telescope',
             },
             run = ':Neorg sync-parsers'
@@ -80,9 +82,7 @@ require('packer').startup({
         use { 'epwalsh/obsidian.nvim',
 
             requires = {
-                "nvim-lua/plenary.nvim",
                 "hrsh7th/nvim-cmp",
-                "nvim-telescope/telescope.nvim",
                 "preservim/vim-markdown",
             },
         }
@@ -103,22 +103,17 @@ require('packer').startup({
 
         -- Git
         use { 'lewis6991/gitsigns.nvim' }
-        use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+        use { 'sindrets/diffview.nvim' }
         use { 'TimUntersberger/neogit',
             requires = {
-                'nvim-lua/plenary.nvim',
                 'sindrets/diffview.nvim'
             }
         }
-        use { 'pwntester/octo.nvim',
-            requires = {
-                'nvim-lua/plenary.nvim',
-                'nvim-telescope/telescope.nvim',
-                'nvim-tree/nvim-web-devicons',
-            } }
+        use { 'pwntester/octo.nvim' }
+        use { 'natecraddock/workspaces.nvim' }
 
         -- Telescope
-        use { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim', }
+        use { 'nvim-telescope/telescope.nvim' }
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
         use { 'nvim-telescope/telescope-file-browser.nvim' }
         use { 'nvim-telescope/telescope-live-grep-args.nvim' }

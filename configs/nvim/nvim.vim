@@ -4,6 +4,7 @@ augroup NvimAutoGroup
     autocmd FileType undotree nnoremap <space> <CR>
     autocmd FileType TelescopePrompt inoremap <buffer> <silent> <C-r> <C-r>
     autocmd FileType NeogitStatus  nnoremap <CR> :
+    autocmd TermOpen * startinsert
 augroup end
 
 set foldmethod=expr
@@ -11,7 +12,8 @@ set cursorlineopt=number
 set foldexpr=nvim_treesitter#foldexpr()
 set conceallevel=1
 
-colorscheme duskfox
+" colorscheme rose-pine-moon
+colorscheme kanagawa
 
 " nvim tree
 let g:loaded_netrw       = 1

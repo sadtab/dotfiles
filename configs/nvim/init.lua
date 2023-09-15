@@ -29,24 +29,30 @@ require("plugins.outline")
 require("plugins.saga")
 require("plugins.neogit")
 require("plugins.obsidian")
+require("plugins.kanagawa")
+require("plugins.workspace")
 
 -- Plugins without config
 require("nvim-web-devicons").setup {}
 require("fidget").setup {}
-require("neoscroll").setup {}
 require("treesitter-context").setup {}
 require("neodev").setup {}
 require("scrollbar").setup {}
 require("nvim-autopairs").setup {}
 require('neogen').setup {}
+require('catppuccin').setup {}
+require('rose-pine').setup {}
 require('cellular-automaton')
+
+-- Plugins with less config
 require("icon-picker").setup({
     disable_legacy_commands = true
 })
-
+require("config")
 require("keymaps")
 
-
--- Archive
--- require("tidy").setup()
--- require("neogit").setup {}
+if vim.g.neovide then
+    require("neovide")
+else
+    require("neoscroll").setup {}
+end

@@ -21,6 +21,7 @@ require("which-key").setup {
     require("which-key").register({
         ["<leader>"] = {
             Z        = 'Toggle Lock Scroll',
+            T        = 'New tab',
             ["<CR>"] = '<CR> Literal',
         },
         ["\\"] = {

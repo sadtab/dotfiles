@@ -1,4 +1,5 @@
 require('Comment').setup {
+    ignore = '^$',
     toggler = {
         ---Line-comment toggle keymap
         line = 'cc',
@@ -12,4 +13,3 @@ require('Comment').setup {
         block = 'cb',
     },
 }
-

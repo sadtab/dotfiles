@@ -1,47 +1,3 @@
--- Lua configs
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
-})
-
-vim.opt.fillchars = {
-    fold = " ",
-    foldopen = "",
-    foldclose = "",
-    foldsep = " ",
-    diff = "╱",
-    eob = " ",
-}
-
--- custom functions
-
-NoteMenu = function()
-    require("telescope.builtin").find_files(
-        require("telescope.themes").get_dropdown {
-            cwd = "~/notes/neorg/",
-            hidden = false,
-            no_ignore = false,
-        })
-end
-
-ConfMenu = function()
-    require("telescope.builtin").find_files(
-        require("telescope.themes").get_dropdown {
-            cwd = "~/dotfiles/configs/nvim/"
-        })
-end
-
-DotMenu = function()
-    require("telescope.builtin").find_files(
-        require("telescope.themes").get_dropdown {
-            cwd = "~/dotfiles/",
-            hidden = true,
-        })
-end
 -------------
 -- keymaps --
 -------------
@@ -83,6 +39,10 @@ vim.keymap.set('n', '<leader>l', '<cmd>LspStart<CR>',
     { noremap = true, silent = true, desc = "LSP Start" })
 vim.keymap.set('n', '<leader>L', '<cmd>LspStop<CR>',
     { noremap = true, silent = true, desc = "LSP Stop" })
+vim.keymap.set('n', '<leader>LL', '<cmd>LspRestart<CR>',
+    { noremap = true, silent = true, desc = "LSP Restart" })
+vim.keymap.set('n', '<leader>w', '<cmd>WindowsToggleAutowidth<CR>',
+    { noremap = true, silent = true, desc = "Window Focus mode" })
 
 -- Misc
 vim.keymap.set('n', '<leader><leader>', "<cmd>NvimTreeToggle<CR>",
@@ -123,3 +83,4 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Saga
 vim.keymap.set('n', '<space>T', '<CMD>Lspsaga term_toggle<CR>',
     { noremap = true, silent = true, desc = "Terminal (floating)" })
+

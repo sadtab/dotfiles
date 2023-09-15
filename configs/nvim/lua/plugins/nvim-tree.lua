@@ -51,6 +51,7 @@ end
 require("nvim-tree").setup({
     on_attach = on_attach,
     disable_netrw = true,
+    sync_root_with_cwd = true,
     actions = {
         open_file = {
             resize_window = false,

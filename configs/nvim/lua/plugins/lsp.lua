@@ -34,7 +34,7 @@ local kind_icons = {
 }
 
 local cmp = require('cmp')
-require('cmp').setup {
+cmp.setup {
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -308,7 +308,7 @@ require('lspconfig').clangd.setup {
         "/home/stabei/clangd/bin/clangd",
         "--compile-commands-dir=build",
         "--background-index",
-        -- "--header-insertion=iwyu",
+        "--header-insertion=iwyu",
         "--query-driver=/home/dev/ara/eb/adaptivecore/sdk/eblinux/qemu-x86/2.13.0-20-11/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/x86_64-poky-linux-g++"
     },
     single_file_support = true,

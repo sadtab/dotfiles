@@ -29,9 +29,6 @@ augroup commonAutoGroup
     "Set expandtab
     autocmd FileType c,cpp,h,hpp,txt,py setlocal tabstop=4 expandtab
 
-    "Start terminal in insert mode
-    autocmd BufWinEnter,WinEnter term://* startinsert
-
 augroup END
 
 " Vim configuration -------------------------------------{{{1
@@ -132,10 +129,6 @@ noremap <Down>    <C-W>2-
 noremap <Left>    <c-w>2<
 noremap <Right>   <c-w>2>
 
-"Tab navigation Ctrl + arrow
-noremap <C-Left>  gT
-noremap <C-Right> gt
-
 " Move visually selected
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap J :m '>+1<CR>gv=gv
@@ -180,7 +173,6 @@ let g:tmux_navigator_disable_when_zoomed = 1
 
 " Delete in command mode like shell
 cnoremap <M-BS>  <C-w>
-
 
 " If the Vim pane is zoomed, stay zoomed when moving to another tmux pane
 "let g:tmux_navigator_preserve_zoom = 1

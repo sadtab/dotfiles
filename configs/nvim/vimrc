@@ -62,6 +62,9 @@ augroup vimAutoGroup
     "Highlight my keyword
     autocmd VimEnter,WinEnter,BufWinEnter * :match ST /TODOST/
 
+    "Start terminal in insert mode
+    autocmd BufWinEnter,WinEnter term://* startinsert
+
 augroup END
 
 " Functions and DIYs --------------------------------{{{1

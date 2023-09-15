@@ -1,13 +1,17 @@
--- Credit to github.com/glepnir for these helpers 
 local get_lsp_name = function()
-    local clients = vim.lsp.get_clients()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
         return "No LSP"
     end
 
     for _, client in ipairs(clients) do
-        return client.name
+        local filetypes = client.config.filetypes
+        if filetypes and vim.fn.index(filetypes, vim.bo[bufnr].filetype) ~= -1 then
+            return client.name
+        end
     end
+    return "No LSP"
 end
 
 local white_space = function()
@@ -33,6 +37,7 @@ local mixed_indent = function()
         return 'Mixed Indent'
     end
 end
+
 
 require('lualine').setup {
     options = {
