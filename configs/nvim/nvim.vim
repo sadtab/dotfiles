@@ -4,7 +4,13 @@ augroup NvimAutoGroup
     autocmd FileType undotree nnoremap <space> <CR>
     autocmd FileType TelescopePrompt inoremap <buffer> <silent> <C-r> <C-r>
     autocmd FileType NeogitStatus  nnoremap <CR> :
+
+    " <CR> to insert mode
+    autocmd TermOpen * nnoremap <buffer> <CR> i
     autocmd TermOpen * startinsert
+
+    " close terminal directly
+    autocmd TermClose * execute 'bdelete! ' . expand('<abuf>')
 augroup end
 
 set foldmethod=expr
@@ -36,6 +42,9 @@ cnoreabbrev GG Neogit
 
 cnoreabbrev NR Neorg return
 cnoreabbrev NN Neorg
+
+cnoreabbrev cs cd /home/stabei/host_workspace/worktree_swu/software-update-tools
+
 
 " <C-n> and <C-p> to jump in code snips
 imap <silent><expr> <C-n> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'

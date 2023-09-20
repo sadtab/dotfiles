@@ -1,3 +1,8 @@
+[include]
+    path = ~/dotfiles/configs/git/config
+[core]
+    editor = vim
+    excludesFile = ~/dotfiles/configs/git/exclude
 [diff]
 	tool = bc
 [difftool "bc"]
