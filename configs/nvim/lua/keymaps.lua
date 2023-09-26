@@ -1,6 +1,10 @@
 -------------
 -- keymaps --
 -------------
+--  For lazy loaded plugins, require should be wrapped as <cmd>lua require("module")<cmd>
+--  Other wise the module will be loaded right away
+
+local helpers = require("helpers")
 
 -- Telescope
 vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files,
@@ -47,16 +51,18 @@ vim.keymap.set('n', '<leader>w', '<cmd>WindowsToggleAutowidth<CR>',
 -- Misc
 vim.keymap.set('n', '<leader><leader>', "<cmd>NvimTreeToggle<CR>",
     { noremap = true, silent = true, desc = "Tree toggle" })
-vim.keymap.set('n', '<space>m', require('mini.map').toggle,
-    { noremap = true, silent = true, desc = "Minimap toggle" })
-vim.keymap.set('n', '<space>l', "<cmd>IlluminateToggle<CR>",
-    { noremap = true, silent = true, desc = "Illuminate toggle" })
-vim.keymap.set('n', '<C-n>', require('illuminate').goto_next_reference,
-    { noremap = true, silent = true, desc = "Illuminate toggle" })
-vim.keymap.set('n', '<C-p>', require('illuminate').goto_prev_reference,
-    { noremap = true, silent = true, desc = "Illuminate toggle" })
+vim.keymap.set('n', '<space>m', '<cmd>lua require("mini.map").toggle()<CR>',
+    { noremap = true, silent = true, desc = "Minimap toggle" }) -- Lazy loader
 vim.keymap.set('n', '<space>F', "<cmd>Twilight<CR>",
     { noremap = true, silent = true, desc = "Focus (Twilight)" })
+
+-- Illuminate
+vim.keymap.set('n', '<space>l', "<cmd>IlluminateToggle<CR>",
+    { noremap = true, silent = true, desc = "Illuminate toggle" }) -- Lazy loader
+vim.keymap.set('n', '<C-n>', '<cmd>lua require("illuminate").goto_next_reference()<CR>',
+    { noremap = true, silent = true, desc = "Illuminate toggle" })
+vim.keymap.set('n', '<C-p>', '<cmd>lua require("illuminate").goto_prev_reference()<CR>',
+    { noremap = true, silent = true, desc = "Illuminate toggle" })
 
 -- Neorg
 vim.keymap.set('n', '<space>nw', '<cmd>Neorg workspace work<CR>',
@@ -67,11 +73,11 @@ vim.keymap.set('n', '<space>J', '<cmd>Neorg journal today<CR>',
     { noremap = true, silent = true, desc = "Journals" })
 
 -- <Bslash>
-vim.keymap.set('n', '<Bslash>c', ConfMenu,
+vim.keymap.set('n', '<Bslash>c', helpers.ConfMenu,
     { noremap = true, silent = true, desc = "Open configs" })
-vim.keymap.set('n', '<Bslash>n', NoteMenu,
+vim.keymap.set('n', '<Bslash>n', helpers.NoteMenu,
     { noremap = true, silent = true, desc = "Open Neorg Notes" })
-vim.keymap.set('n', '<Bslash>d', DotMenu,
+vim.keymap.set('n', '<Bslash>d', helpers.DotMenu,
     { noremap = true, silent = true, desc = "Open Dotfiles" })
 vim.keymap.set('n', '<Bslash>o', '<cmd>ObsidianQuickSwitch<CR>',
     { noremap = true, silent = true, desc = "Open Obsidian Files" })
@@ -83,4 +89,3 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Saga
 vim.keymap.set('n', '<space>T', '<CMD>Lspsaga term_toggle<CR>',
     { noremap = true, silent = true, desc = "Terminal (floating)" })
-

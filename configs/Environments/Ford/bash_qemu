@@ -1,0 +1,20 @@
+#!/bin/sh
+
+alias pb='runc exec -t PythonBinding sh'
+alias ls='ls -hF --color=tty --group-directories-first'
+alias ll='ls -alF --color=tty --group-directories-first'
+alias l='ls -aCF --color=tty --group-directories-first -1'
+alias ..='cd ..'
+alias E='exit'
+
+f(){
+    find . -type "$1" -iname "$2" 2>/dev/null
+}
+
+tst(){
+    runc exec -t PythonBinding sh -c "cp -r /data/functional_test/scripts /tmp"
+    # If slash was ever avaialable
+    # runc exec -t PythonBinding sh -c "cp -r /data/functional_test/tests   /tmp"
+    runc exec -t PythonBinding sh
+}
+

@@ -16,28 +16,3 @@ vim.opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
-
--- custom functions
-NoteMenu = function()
-    require("telescope.builtin").find_files(
-        require("telescope.themes").get_dropdown {
-            cwd = "~/notes/neorg/",
-            hidden = false,
-            no_ignore = false,
-        })
-end
-
-ConfMenu = function()
-    require("telescope.builtin").find_files(
-        require("telescope.themes").get_dropdown {
-            cwd = "~/dotfiles/configs/nvim/"
-        })
-end
-
-DotMenu = function()
-    require("telescope.builtin").find_files(
-        require("telescope.themes").get_dropdown {
-            cwd = "~/dotfiles/",
-            hidden = true,
-        })
-end

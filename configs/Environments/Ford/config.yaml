@@ -1,0 +1,36 @@
+CompileFlags: # Tweak the parse settings
+  Add: [
+    # Avoid "Too many errors emitted"
+        "-ferror-limit=0",
+        "-Wno-gnu-zero-variadic-macro-arguments",
+    # Ara
+        -I/home/dev/ara/eb/adaptivecore/sysroots/eblinux/qemu-x86/2.13.0-20-11/usr/include/20-11/,
+        -I/home/dev/ara/eb/adaptivecore/sysroots/eblinux/qemu-x86/2.13.0-20-11/usr/include/,
+    # SWU
+        -I/home/stabei/host_workspace/worktree_swu/base/fnvbase/public/,
+        -I/home/stabei/host_workspace/worktree_swu/aracom/aracom_binding/generated/AP_R20-11/inc/,
+    # OTA
+        -I/home/stabei/host_workspace/worktree_ota/base/fnvbase/public/,
+        -I/home/stabei/host_workspace/worktree_ota/aracom/aracom_binding/generated/AP_R20-11/inc/,
+    # boost 1.78
+        -I/home/dev/.conan/data/boost/1.78.0/_/_/package/e2e36dc0645afb1818a3583c041ed0913c373354/include/,
+    # Unit test flag
+    # -DFORDOS_UNIT_TEST,
+  ]
+  Remove: [ -fprofile-abs-path, ]
+
+Diagnostics:
+  UnusedIncludes: Strict
+  ClangTidy:
+    Add: [ 
+      # bugprone-suspicious-include,
+      # misc-header-include-cycle,
+      # misc-include-cleaner,
+      readability-duplicate-include,
+  ]
+
+# InlayHints:
+#   Designators: Yes
+#   Enabled: Yes
+#   ParameterNames: Yes
+#   DeducedTypes: Yes

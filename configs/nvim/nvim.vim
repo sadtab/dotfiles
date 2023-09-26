@@ -30,7 +30,7 @@ let g:mkdp_auto_close = 0
 let g:mkdp_filetypes  = ['markdown','plantuml','pu']
 
 "Command alias
-cnoreabbrev DO DiffviewOpen
+cnoreabbrev DD DiffviewOpen
 cnoreabbrev DC DiffviewClose
 cnoreabbrev DH DiffviewFileHistory %
 
@@ -42,12 +42,3 @@ cnoreabbrev GG Neogit
 
 cnoreabbrev NR Neorg return
 cnoreabbrev NN Neorg
-
-cnoreabbrev cs cd /home/stabei/host_workspace/worktree_swu/software-update-tools
-
-
-" <C-n> and <C-p> to jump in code snips
-imap <silent><expr> <C-n> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-inoremap <silent> <C-p> <cmd>lua require('luasnip').jump(-1)<Cr>
-snoremap <silent> <C-n> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <C-p> <cmd>lua require('luasnip').jump(-1)<Cr>
