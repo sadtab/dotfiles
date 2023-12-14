@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<C-]>", function()
+vim.keymap.set("n", "<C-X>", function()
     if require("obsidian").util.cursor_on_markdown_link() then
         return "<cmd>ObsidianFollowLink<CR>"
     end

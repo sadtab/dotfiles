@@ -1,0 +1,42 @@
+- defaults:
+    link:
+      relink: true
+      create: true
+    shell:
+      stdin: true
+      stdout: true
+
+- clean:
+  ~/:
+    recursive:false
+  ~/.config:
+    recursive:true
+
+- create:
+    - $HOME/.local/state/bash
+    - $HOME/.local/share/zsh_plugs/
+    - $XDG_CONFIG_HOME/tmux
+    - $XDG_DATA_HOME/vim/backup
+    - $XDG_DATA_HOME/vim/swap
+    - $XDG_DATA_HOME/vim/undo
+    - $XDG_DATA_HOME/vim/view
+    - $XDG_DATA_HOME/vim/spell
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+    - [git clone --depth=1 "https://github.com/tmux-plugins/tpm"          "$XDG_CONFIG_HOME/tmux/plugins/tpm"]
+    - [git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "$HOME/.local/share/powerlevel10k"]
+    - [git clone --depth=1 "https://github.com/supercrabtree/k.git"       "$HOME/.local/share/zsh_plugs/k"]
+    - [git clone --depth=1 "https://github.com/VundleVim/Vundle.vim.git"  "$XDG_DATA_HOME/vim/bundle/Vundle.vim"]
+
+- link:
+    $HOME/.profile:                     configs/bash/profile
+    $XDG_CONFIG_HOME/nvim:              configs/nvim
+    $XDG_CONFIG_HOME/git:               configs/git
+    $XDG_CONFIG_HOME/alacritty:         configs/alacritty
+    $XDG_CONFIG_HOME/tmux/tmux.conf:    configs/tmux/tmux.conf
+    # Choose the relavent machine conf file
+    $HOME/.bashrc: configs/bash/machines/set_ht.sh
+    # $HOME/.bashrc: configs/bash/machines/set_noir.sh
+    # $HOME/.bashrc: configs/bash/machines/set_noir_wsl.sh
+    # $HOME/.bashrc: configs/bash/machines/set_vm.sh

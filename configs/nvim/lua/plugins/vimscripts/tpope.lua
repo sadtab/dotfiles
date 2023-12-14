@@ -2,6 +2,7 @@ return {
     { 'tpope/vim-surround' },
     { 'tpope/vim-repeat' },
     { 'tpope/vim-sensible' },
+    { 'Neui/cmakecache-syntax.vim',         ft = { 'cmakec' } },
     { 'tpope/vim-fugitive',                 cmd = { 'G', 'Git' } },
     { 'ingmarlehmann/vim-franca-highlight', ft = { 'fidl' } },
     { 'rbong/vim-flog',                     cmd = { 'Flog', 'Floggit', 'Flogsplit' }, },

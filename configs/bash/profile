@@ -1,0 +1,5 @@
+# This file shall be linked or copied to $HOME as it is
+source "$HOME/dotfiles/configs/bash/set_xdg.sh"         # To be always sourced linked anyway
+
+[[ "$-" != *i* ]] && return
+source "$HOME/.bashrc"                                  # To be sourced in interactive shell only

@@ -6,15 +6,15 @@ local function on_attach(bufnr)
     end
 
     -- some of defaults
-    vim.keymap.set('n', '[c', api.node.navigate.git.prev, opts('Prev Git'))
-    vim.keymap.set('n', ']c', api.node.navigate.git.next, opts('Next Git'))
-    vim.keymap.set('n', ']e', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))
-    vim.keymap.set('n', '[e', api.node.navigate.diagnostics.prev, opts('Prev Diagnostic'))
+    vim.keymap.set('n', '[g', api.node.navigate.git.prev, opts('Prev Git'))
+    vim.keymap.set('n', ']g', api.node.navigate.git.next, opts('Next Git'))
+    vim.keymap.set('n', ']d', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))
+    vim.keymap.set('n', '[d', api.node.navigate.diagnostics.prev, opts('Prev Diagnostic'))
     vim.keymap.set('n', 'F', api.live_filter.clear, opts('Clean Filter'))
     vim.keymap.set('n', 'f', api.live_filter.start, opts('Filter'))
     vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
-    vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name'))
-    vim.keymap.set('n', 'Y', api.fs.copy.relative_path, opts('Copy Relative Path'))
+    -- vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name')) -- Breaks neoclip
+    -- vim.keymap.set('n', 'Y', api.fs.copy.relative_path, opts('Copy Relative Path')) -- Breaks neoclip
 
     -- NERDTree emulation
     vim.keymap.set('n', 'u', api.tree.change_root_to_parent, opts('Up'))

@@ -19,7 +19,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 set conceallevel=1
 
 " colorscheme rose-pine-moon
-colorscheme kanagawa
+colorscheme duskfox
 
 " nvim tree
 let g:loaded_netrw       = 1
@@ -42,3 +42,22 @@ cnoreabbrev GG Neogit
 
 cnoreabbrev NR Neorg return
 cnoreabbrev NN Neorg
+
+lua << EOF
+vim.api.nvim_create_user_command(
+    'CC',
+    require("helpers").load_themes,
+    { nargs = 0 }
+)
+
+vim.api.nvim_create_user_command(
+    'Lint',
+    function () require('lint').try_lint() end,
+    { nargs = 0 }
+)
+vim.api.nvim_create_user_command(
+    'LintOff',
+    function () require('lint').try_lint() end,
+    { nargs = 0 }
+)
+EOF

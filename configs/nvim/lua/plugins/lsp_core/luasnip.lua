@@ -1,7 +1,10 @@
 return {
     "L3MON4D3/LuaSnip",
-    lazy = true,
+    lazy = false,
     version = "2.*",
     build = "make install_jsregexp",
-    event = "LspAttach",
+    config = function()
+        local luasnip = require('luasnip')
+        require("keymaps").snip(luasnip)
+    end
 }

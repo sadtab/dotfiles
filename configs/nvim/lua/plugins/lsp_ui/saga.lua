@@ -2,6 +2,7 @@ return {
     'glepnir/lspsaga.nvim',
     lazy = true,
     event = "LspAttach",
+    cmd = "Lspsaga",
     opts = {
         symbol_in_winbar = {
             enable = false,

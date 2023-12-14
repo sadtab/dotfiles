@@ -1,5 +1,6 @@
 local config = function()
     local illuminated = require('illuminate')
+    local keys = require('keymaps')
 
     -- default configuration
     vim.api.nvim_set_hl(0, "IlluminatedWordText", { reverse = true })
@@ -21,6 +22,10 @@ local config = function()
         },
         under_cursor = false,
     })
+    keys.illuminate(illuminated)
+
+    -- when loaded start it right away
+    require('illuminate').toggle()
 end
 
 return {

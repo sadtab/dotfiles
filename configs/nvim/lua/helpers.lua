@@ -1,33 +1,5 @@
 local M = {}
 
-M.kind_icons = {
-    Text = "󰊄",
-    Method = "",
-    Function = "",
-    Constructor = "󱁤",
-    Field = "",
-    Variable = "",
-    Class = "",
-    Interface = "",
-    Module = "",
-    Property = "",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-}
-
 M.NoteMenu = function()
     require("neorg")
     require("telescope.builtin").find_files(
@@ -51,6 +23,21 @@ M.DotMenu = function()
             cwd = "~/dotfiles/",
             hidden = true,
         })
+end
+
+M.Journal = function()
+    require("neorg")
+    vim.cmd("Neorg journal today")
+end
+
+M.load_themes = function()
+    vim.cmd([[
+        Lazy load tokyonight.nvim
+        Lazy load rose-pine
+        Lazy load catppuccin
+        Lazy load nightfox.nvim
+    ]])
+    require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown())
 end
 
 return M

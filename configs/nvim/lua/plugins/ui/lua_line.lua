@@ -38,24 +38,36 @@ local mixed_indent = function()
     end
 end
 
-return {
-    'nvim-lualine/lualine.nvim',
-    lazy = false,
-    opts = {
+local in_recording = function()
+    if vim.fn.reg_recording() ~= '' then
+        return 'RECORDING @ ' .. vim.fn.reg_recording()
+    else
+        return ''
+    end
+end
+
+local lsp_status = function()
+    return require('lsp-status').status()
+end
+
+local config = function()
+    require("lualine").setup({
         options = {
             icons_enabled = true,
             theme = 'auto',
-            component_separators = '',
-            section_separators = '',
-            --component_separators = { left = '', right = ''},
-            --section_separators = { left = '', right = ''},
+            -- component_separators = { left = '', right = '' },
+            -- section_separators = { left = '', right = '' },
+            -- component_separators = { left = '', right = '' },
+            -- section_separators = { left = '', right = '' },
+            component_separators = { left = '', right = '' },
+            section_separators = { left = '', right = '' },
             disabled_filetypes = {
                 statusline = { 'NvimTree' },
                 winbar = { 'NvimTree' },
             },
             ignore_focus = { 'NvimTree' },
             always_divide_middle = true,
-            globalstatus = false,
+            globalstatus = true,
             refresh = {
                 statusline = 1000,
                 tabline = 1000,
@@ -64,6 +76,7 @@ return {
         },
         sections = {
             lualine_a = {
+                { in_recording, color = 'lualine_a_replace' },
                 'mode'
             },
             lualine_b = {
@@ -76,10 +89,20 @@ return {
                 'searchcount',
             },
             lualine_x = {
-                { white_space,                          color = { fg = 'yellow' } },
-                { mixed_indent,                         color = { fg = 'yellow' } },
-                { "lua require('lsp-status').status()", color = { fg = 'lightblue' } },
-                { 'filetype', }
+                { white_space,  color = 'CursorLineNr' },
+                { mixed_indent, color = 'CursorLineNr' },
+                { lsp_status,   color = 'Folded' },
+                { 'filetype' },
+                {
+                    require("lazy.status").updates,
+                    cond = require("lazy.status").has_updates,
+                    color = { fg = "#ff9e64" },
+                },
+                -- {
+                --     function() return require("noice").api.statusline.mode.get() end,
+                --     cond = function() return require("noice").api.statusline.mode.has() end,
+                --     color = { fg = "#ff9e64" },
+                -- },
             },
             lualine_y = {
                 'location',
@@ -99,15 +122,58 @@ return {
         inactive_sections = {
             lualine_a = {},
             lualine_b = {},
-            lualine_c = { 'filename' },
-            lualine_x = { get_lsp_name, 'os.date("%A")' },
+            lualine_c = {},
+            lualine_x = {},
             lualine_y = {},
             lualine_z = {}
         },
-        tabline = {},
-        winbar = {},
-        inactive_winbar = {},
+        tabline = {
+            lualine_b = {
+                {
+                    'tabs',
+                    mode = 2,
+                    tabs_color = {
+                        active = 'DiagnosticWarn',  -- Color for active tab.
+                        inactive = { fg = 'gray' }, -- Color for inactive tab.
+                    },
+                },
+            },
+        },
+        winbar = {
+            lualine_a = {},
+            lualine_b = {
+                {
+                    'filename',
+                    separator = { left = '', right = '' },
+                    path = 1,
+                }
+            },
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {},
+        },
+        inactive_winbar = {
+            lualine_a = {},
+            lualine_b = {
+                {
+                    'filename',
+                    separator = { left = '', right = '' },
+                    path = 1,
+                }
+            },
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {}
+        },
         extensions = {}
 
-    }
+    })
+end
+
+return {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    config = config,
 }

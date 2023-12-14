@@ -19,9 +19,11 @@ augroup commonAutoGroup
     autocmd BufNewFile,BufRead *.bb set filetype=sh
     autocmd BufNewFile,BufRead *.service* set ft=systemd
     autocmd BufNewFile,BufRead *.json.* set filetype=json
+    autocmd BufNewFile,BufRead *.py.* set filetype=python
     autocmd BufNewFile,BufRead *.vim set filetype=vim
     autocmd BufNewFile,BufRead config set filetype=yaml
     autocmd BufNewFile,BufRead gitconf_* set filetype=yaml
+    autocmd BufNewFile,BufRead CMakeCache.txt set syntax=cmakec
 
     "ClangFormatAutoEnable
     "autocmd FileType c,cpp,hpp,h ClangFormatAutoEnable
@@ -89,8 +91,8 @@ nnoremap U <C-R>
 tnoremap <Esc> <C-\><C-n>
 
 " Split screen | _
-nnoremap _  :sp<CR>
-nnoremap \| :vs<CR>
+nnoremap <silent> _  :sp<CR>
+nnoremap <silent> \| :vs<CR>
 
 "Map H/L to Beginning and end of line
 nnoremap H ^
@@ -102,10 +104,10 @@ vnoremap L g_
 inoremap jj <esc>
 inoremap kk <esc>
 inoremap jk <esc>
-inoremap jk <esc>
+inoremap kj <esc>
 
 " Keep currnt line in the center
-nnoremap <leader>Z  :let &scrolloff=999-&scrolloff<CR>
+nnoremap <silent> <leader>Z  :let &scrolloff=999-&scrolloff<CR>
 
 "tap // to search visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
@@ -118,10 +120,10 @@ vnoremap D "_d
 vnoremap Y "+y
 
 "New tab
-nnoremap <leader>T :tabnew<CR>
+nnoremap <silent> \T :tabnew<CR>
 
 "Quit
-noremap Q :q<CR>
+noremap <silent> Q :q<CR>
 
 "Window resizing
 noremap <Up>      <C-W>2+
@@ -130,37 +132,33 @@ noremap <Left>    <c-w>2<
 noremap <Right>   <c-w>2>
 
 " Move visually selected
-vnoremap K :m '<-2<CR>gv=gv
-vnoremap J :m '>+1<CR>gv=gv
+vnoremap <silent> K :m '<-2<CR>gv=gv
+vnoremap <silent> J :m '>+1<CR>gv=gv
 
 "Mapping of \
-nnoremap \v :tabnew $XDG_CONFIG_HOME/nvim/common.vim<CR>
-nnoremap \t :tabnew $XDG_CONFIG_HOME/tmux/tmux.conf<CR>
-nnoremap \f :tabnew ~/dotfiles/configs/Environments/Ford/.bash_ford<CR>
-nnoremap \y :tabnew $XDG_CONFIG_HOME/clangd/config.yaml<CR>
-nnoremap \s <Esc>]s<Esc>:sleep 300m<CR>1z=<Esc>:sleep 300m<CR>u<Esc>:sleep 300m<CR><C-r>
-nnoremap \S <Esc>:setlocal spell!<CR>
-nnoremap \F <Esc>:set spell spelllang=fr<CR>
-nnoremap \E <Esc>:set spell spelllang=en<CR>
-nnoremap \w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <silent> \s <Esc>]s<Esc>:sleep 300m<CR>1z=<Esc>:sleep 300m<CR>u<Esc>:sleep 300m<CR><C-r>
+nnoremap <silent> \S <Esc>:setlocal spell!<CR>
+nnoremap <silent> \F <Esc>:set spell spelllang=fr<CR>
+nnoremap <silent> \E <Esc>:set spell spelllang=en<CR>
+nnoremap <silent> \w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Insert a blank line below or above current line (do not move the cursor),
 nnoremap <expr> oo printf('m`%so<ESC>``', v:count1)
 nnoremap <expr> OO printf('m`%sO<ESC>``', v:count1)
 
 " Plugin related
-nnoremap <space>u :UndotreeToggle<CR>
+nnoremap <silent> <space>u :UndotreeToggle<CR>
 
 " Expand pane to a new tab
-noremap <C-w>z :tab split<CR>
+noremap <silent> <C-w>z :tab split<CR>
 
 " Don't jump with *
-nnoremap * :keepjumps normal! mi*`i<CR>
+nnoremap  <silent> * :keepjumps normal! mi*`i<CR>
 nnoremap <C-i> <C-i>
 
 " Functions and DIYs --------------------------------{{{1
 " Clears hlsearch after doing a search, otherwise just does normal <esc> stuff
-nnoremap <expr> <Esc> {-> v:hlsearch ? ":nohl\<CR>" : "\<Esc>"}()
+nnoremap <silent> <expr> <Esc> {-> v:hlsearch ? ":nohl\<CR>" : "\<Esc>"}()
 
 " Plugin configuration ------------------------------{{{1
 " tmux-vim pane navigation --------------------------{{{2

@@ -1,0 +1,17 @@
+# Tobe copied to the $HOME or $XDG_HOME_CONFIG/git/ directory
+[include]
+    path = ~/dotfiles/configs/git/config
+[core]
+    editor = vim
+
+# In Case of Beyond Compare : 
+# [diff]
+# 	tool = bc
+# [difftool "bc"]
+# 	path = c:/Program Files/Beyond Compare 4/bcomp.exe
+# [merge]
+# 	tool = bc
+# [mergetool "bc"]
+# 	path = c:/Program Files/Beyond Compare 4/bcomp.exe
+# [difftool]
+# 	prompt = false

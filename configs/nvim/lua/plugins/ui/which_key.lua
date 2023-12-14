@@ -30,11 +30,6 @@ local config = function()
             ["<CR>"] = '<CR> Literal',
         },
         ["\\"] = {
-            f = 'Open .bash_ford',
-            t = 'Open .tmux.conf',
-            v = 'Open common.vim',
-            y = 'Open clangd Yaml config file',
-            k = 'Open keymaps.lua',
             S = 'Toggle spelling',
             F = 'Enable spelling (French)',
             E = 'Enable spelling (English)',

@@ -1,5 +1,3 @@
-vim.keymap.set('n', '<space>g', '<cmd>Gitsigns toggle_signs<CR>', { desc = "Toggle Signs" }) -- Lazy loader
-
 return {
     'lewis6991/gitsigns.nvim',
     lazy = true,
@@ -52,33 +50,7 @@ return {
 
         on_attach               = function()
             local gs = package.loaded.gitsigns
-
-
-            -- Navigation
-            vim.keymap.set('n', '<space>.', function()
-                if vim.wo.diff then return ']c' end
-                vim.schedule(function() gs.next_hunk() end)
-                return '<Ignore>'
-            end, { expr = true, desc = "Git previous hunk(>)" })
-
-            vim.keymap.set('n', '<space>,', function()
-                if vim.wo.diff then return '[c' end
-                vim.schedule(function() gs.prev_hunk() end)
-                return '<Ignore>'
-            end, { expr = true, desc = "Git previous hunk(<)" })
-
-            -- Actions
-            vim.keymap.set('n', '<space>p', gs.preview_hunk, { desc = "Preview Hunk" })
-            vim.keymap.set('n', '<space>b', function() gs.blame_line { full = true } end, { desc = "Blame Line" })
-            vim.keymap.set({ 'n', 'v' }, '<space>Gs', gs.stage_hunk, { desc = "Stage Hunk" })
-            vim.keymap.set({ 'n', 'v' }, '<space>Gr', gs.reset_hunk, { desc = "Reset Hunk" })
-            vim.keymap.set('n', '<space>Gu', gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
-            vim.keymap.set('n', '<space>GS', gs.stage_buffer, { desc = "Stage Buffer" })
-            vim.keymap.set('n', '<space>GR', gs.reset_buffer, { desc = "Reset Buffer" })
-            vim.keymap.set('n', '<space>GB', gs.toggle_current_line_blame, { desc = "Blame Line (Toggele)" })
-            vim.keymap.set('n', '<space>Gd', gs.diffthis, { desc = "Diff this" })
-            vim.keymap.set('n', '<space>GD', function() gs.diffthis('~') end, { desc = "Diff this ~" })
-            vim.keymap.set('n', '<space>Gt', gs.toggle_deleted, { desc = "Toggle Deleted" })
+            require("keymaps").gitsign(gs)
         end,
     }
 }

@@ -33,7 +33,7 @@ return {
         ignored_settings = {},
         -- Change the default way of opening the commit popup
         commit_popup = {
-            kind = "split",
+            kind = "split_above",
         },
         -- Change the default way of opening the preview buffer
         preview_buffer = {

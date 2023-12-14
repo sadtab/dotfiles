@@ -1,6 +1,7 @@
 local config = function()
     local cmp = require('cmp')
-    local kind_icons = require('helpers').kind_icons
+    local keys = require('keymaps')
+    local lspkind = require('lspkind')
     cmp.setup {
         snippet = {
             expand = function(args)
@@ -13,41 +14,37 @@ local config = function()
                 documentation = cmp.config.window.bordered(),
             },
         },
-        mapping = cmp.mapping.preset.insert({
-            ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-            ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-            ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-            ["<C-d>"] = cmp.mapping.scroll_docs(4),
-            ["<C-c>"] = cmp.mapping.abort(),
-            ["<C-space>"] = cmp.mapping.confirm({ select = true }),
-            ["<tab>"] = cmp.config.disable,
-        }),
+        mapping = cmp.mapping.preset.insert(keys.auto_complete(cmp)),
         formatting = {
-            fields = { "kind", "abbr", "menu" },
-            format = function(entry, vim_item)
-                -- This concatonates the icons with the name of the item kind
-                vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
-                vim_item.menu = ({
-                    nvim_lsp = "[LSP]",
-                    luasnip = "[Snippet]",
-                    buffer = "[Buffer]",
-                    path = "[Path]",
-                })[entry.source.name]
-                return vim_item
-            end,
+            format = lspkind.cmp_format({
+                mode = 'symbol_text',
+                maxwidth = 50,
+                ellipsis_char = '...',
+            })
         },
-        sources = {
-            { name = 'nvim_lsp',                group_index = 1 },
-            { name = 'neorg',                   group_index = 1 },
-            { name = 'nvim_lsp_signature_help', group_index = 1 },
-            { name = 'luasnip',                 group_index = 1 },
-            { name = 'nvim_lua',                group_index = 1 },
-            { name = 'buffer',                  group_index = 2 },
-            { name = 'path',                    group_index = 2 },
-            { name = 'doxygen',                 group_index = 3 },
-        },
+        sources = cmp.config.sources({
+            { name = 'luasnip',  group_index = 1, keyword_length = 2 },
+            { name = 'nvim_lsp', group_index = 1, keyword_length = 2 },
+            { name = 'neorg',    group_index = 1, keyword_length = 2 },
+            { name = 'nvim_lua', group_index = 1, keyword_length = 2 },
+            { name = 'buffer',   group_index = 2, keyword_length = 2 },
+            { name = 'path',     group_index = 2, keyword_length = 2 },
+            { name = 'doxygen',  group_index = 3, keyword_length = 2 },
+        }),
         experimental = {
             ghost_text = true
+        },
+        sorting = {
+            comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.recently_used,
+                require("clangd_extensions.cmp_scores"),
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+            },
         },
     }
 end
@@ -60,9 +57,9 @@ return {
         { 'saadparwaiz1/cmp_luasnip' },
         { 'hrsh7th/cmp-path' },
         { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-nvim-lsp-signature-help' },
         { 'hrsh7th/cmp-nvim-lsp' },
         { 'hrsh7th/cmp-nvim-lua' },
+        { 'L3MON4D3/LuaSnip' },
     },
     config = config,
 }

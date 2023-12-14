@@ -1,10 +1,15 @@
 local kind_icons = require("helpers").kind_icons
+local keys = require("keymaps")
 
 -- Built-in lsp Generic Config
-vim.fn.sign_define("DiagnosticSignError", { texthl = "DiagnosticSignError", text = "", numhl = "" })
-vim.fn.sign_define("DiagnosticSignWarn", { texthl = "DiagnosticSignWarn", text = "", numhl = "" })
-vim.fn.sign_define("DiagnosticSignHint", { texthl = "DiagnosticSignHint", text = "", numhl = "" })
-vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignError",
+    { texthl = "DiagnosticSignError", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignWarn",
+    { texthl = "DiagnosticSignWarn", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignHint",
+    { texthl = "DiagnosticSignHint", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignInfo",
+    { texthl = "DiagnosticSignInfo", text = "", numhl = "" })
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -24,35 +29,14 @@ vim.diagnostic.config({
 
 -- LSP handlers
 local handlers = {
-    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+    -- ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+    -- ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 }
 
 -- LSP on_attach
 local on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    vim.keymap.set('n', '<space>d', '<CMD>Lspsaga goto_definition<CR>',
-        { noremap = true, silent = true, buffer = bufnr, desc = "Goto definition" })
-    vim.keymap.set('n', '<space>a', '<cmd>CodeActionMenu<CR>',
-        { noremap = true, silent = true, buffer = bufnr, desc = "Show action" })
-    vim.keymap.set('n', '<space>R', '<CMD>Lspsaga rename<CR>',
-        { noremap = true, silent = true, buffer = bufnr, desc = "Rename References" })
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end,
-        { noremap = true, silent = true, buffer = bufnr, desc = "Format file" })
-    vim.keymap.set('n', '<space>h', vim.lsp.buf.signature_help,
-        { noremap = true, silent = true, buffer = bufnr, desc = "Signiture Help" })
-    vim.keymap.set('n', '<space>k', '<cmd>lua require("goto-preview").goto_preview_definition()<CR>',
-        { noremap = true, silent = true, buffer = bufnr, desc = "Floating Definition" })
-    vim.keymap.set('n', '<space>K', '<cmd>lua require ("goto-preview").close_all_win()<CR>',
-        { noremap = true, silent = true, buffer = bufnr, desc = "Floating Definition Close" })
-    vim.keymap.set('n', '<space>t', "<cmd>SymbolsOutline<CR>",
-        { noremap = true, silent = true, desc = "Symbols Outline Tags" })
-
-    if client.server_capabilities.hoverProvider then
-        vim.keymap.set('n', 'K', '<CMD>Lspsaga hover_doc<CR>',
-            { noremap = true, silent = true, buffer = bufnr, desc = "Show Hover doc" })
-    end
+    -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    keys.lsp(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -116,35 +100,9 @@ require('lspconfig').lua_ls.setup {
     },
 }
 
---[[ require('lspconfig').lua_ls.setup {
-    autostart = true,
-    handlers = handlers,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    -- cmd = { '~/.local/share/lua-language-server/bin/lua-language-server' },
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-            },
-            completion = { enable = true, callSnippet = "Both" },
-            diagnostics = {
-                enable = true,
-                globals = { 'vim'},
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            telemetry = {
-                enable = false,
-            },
-        }
-    },
-} ]]
-
---------
---clangd
---------
+----------------
+-----clangd-----
+----------------
 
 local function switch_source_header_splitcmd(bufnr, splitcmd)
     bufnr = require('lspconfig').util.validate_bufnr(bufnr)
@@ -169,6 +127,9 @@ end
 local on_attach_clangd = function(client, bufnr)
     on_attach(client, bufnr)
     lsp_status.on_attach(client)
+    require("clangd_extensions.inlay_hints")
+    -- require("clangd_extensions.inlay_hints").setup_autocmd()
+    -- require("clangd_extensions.inlay_hints").disable_inlay_hints() -- set of by defaults
 
     require("which-key").register({
         ["<space>"] = {
@@ -177,12 +138,7 @@ local on_attach_clangd = function(client, bufnr)
             },
         }
     })
-    vim.keymap.set('n', '<space>S', "<cmd>ClangdSwitchSourceHeader<CR>",
-        { noremap = true, silent = true, buffer = bufnr, desc = "Switch Header/Source" })
-    vim.keymap.set('n', '<space>ss', "<cmd>ClangdSwitchSourceHeaderSplit<CR>",
-        { noremap = true, silent = true, buffer = bufnr, desc = "Switch in split" })
-    vim.keymap.set('n', '<space>sv', "<cmd>ClangdSwitchSourceHeaderVSplit<CR>",
-        { noremap = true, silent = true, buffer = bufnr, desc = "Switch in vsplit" })
+    keys.clangd(bufnr)
 end
 
 local handlers_clangd = handlers
@@ -224,41 +180,15 @@ require('lspconfig').clangd.setup {
 --------------
 --other server
 --------------
-
-require('lspconfig').cmake.setup {
-    handlers = handlers,
+local servers = { 'cmake', 'vimls', 'bashls', 'jsonls', 'lemminx', 'bufls'  }
+for _, lsp in ipairs(servers) do
+  require('lspconfig')[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    autostart = true,
-}
-
-require('lspconfig').vimls.setup {
     handlers = handlers,
-    on_attach = on_attach,
-    capabilities = capabilities,
     autostart = true,
-}
-
-require('lspconfig').bashls.setup {
-    handlers = handlers,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = true,
-}
-
-require('lspconfig').jsonls.setup {
-    handlers = handlers,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = true,
-}
-
-require('lspconfig').lemminx.setup {
-    handlers = handlers,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = true,
-}
+  }
+end
 
 require('lspconfig').html.setup {
     handlers = handlers,
@@ -266,12 +196,6 @@ require('lspconfig').html.setup {
     capabilities = capabilities,
     autostart = true,
     cmd = { "vscode-html-language-server", "--stdio" }
-}
-require('lspconfig').bufls.setup {
-    handlers = handlers,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = true,
 }
 
 require('lspconfig').pylsp.setup {

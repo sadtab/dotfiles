@@ -40,7 +40,7 @@ return {
                     icon = ' ',
                     desc = 'Config files',
                     group = 'Exception',
-                    action = 'lua ConfMenu()',
+                    action = 'lua require("helpers").ConfMenu()',
                     key = 'c',
                 },
                 {
@@ -61,7 +61,7 @@ return {
                     icon = 'ﴬ ',
                     desc = 'Notes',
                     group = 'Function',
-                    action = 'lua NoteMenu()',
+                    action = 'lua require("helpers").NoteMenu()',
                     key = 'n',
                 },
                 {
@@ -82,7 +82,7 @@ return {
                     icon = 'ﴬ ',
                     desc = 'Journal',
                     group = 'ScrollbarErrorHandle',
-                    action = 'Neorg journal today',
+                    action = 'lua require("helpers").Journal()',
                     key = 'J',
                 },
             },
